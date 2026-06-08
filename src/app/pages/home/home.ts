@@ -1,6 +1,6 @@
 // src/app/pages/home/home.ts
 
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
 import Typed from 'typed.js';
 
 @Component({
@@ -8,9 +8,23 @@ import Typed from 'typed.js';
   templateUrl: './home.html',
   styleUrls: ['./home.css']
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewInit {
 
-  ngAfterViewInit() {
+  greeting: string = '';
+
+  ngOnInit(): void {
+    const hour = new Date().getHours();
+
+    if (hour < 12) {
+      this.greeting = '☀️ Good Morning';
+    } else if (hour < 17) {
+      this.greeting = '🌤️ Good Afternoon';
+    } else {
+      this.greeting = '🌙 Good Evening';
+    }
+  }
+
+  ngAfterViewInit(): void {
     new Typed('#typed', {
       strings: [
         'Creative Developer',
