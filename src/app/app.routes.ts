@@ -5,6 +5,9 @@ import { About } from './pages/about/about';
 import { Qualifications } from './pages/qualifications/qualifications';
 import { Experience } from './pages/experience/experience';
 import { Projects } from './pages/projects/projects';
+import { NavbarComponent } from './components/navbar/navbar';
+import { Skills } from './pages/skills/skills';
+import { Contact } from './pages/contact/contact';
 
 
 export const routes: Routes = [
@@ -13,6 +16,9 @@ export const routes: Routes = [
   { path: 'qualifications', component: Qualifications },
   { path: 'experience', component: Experience },
   { path: 'projects', component: Projects },
+  { path: 'navbar', component: NavbarComponent },
+  { path: 'skills', component: Skills },
+  { path: 'contact', component: Contact },
 
   { path: '**', redirectTo: '' }
 ];
