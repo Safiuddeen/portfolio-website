@@ -9,7 +9,7 @@ import { Footer } from '../../components/footer/footer';
   selector: 'app-contact',
   standalone: true,
   // Add Footer to the imports array here
-  imports: [CommonModule, ReactiveFormsModule, Footer],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './contact.html',
   styleUrl: './contact.css',
 })

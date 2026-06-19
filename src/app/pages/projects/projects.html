@@ -10,7 +10,6 @@
     </div>
 
     <div class="flex flex-nowrap overflow-x-auto justify-start md:justify-center gap-3 md:gap-4 mb-16 pb-4 snap-x">
-
       <button (click)="setFilter('All')"
               [class]="activeFilter === 'All' ? 'bg-blue-600 text-white shadow-lg' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700'"
               class="flex-shrink-0 whitespace-nowrap px-6 py-2 rounded-full text-sm md:text-base font-medium transition-all duration-300 hover:animate-pulse snap-center">
@@ -28,7 +27,6 @@
               class="flex-shrink-0 whitespace-nowrap px-4 py-2 rounded-full text-sm md:text-base font-medium transition-all duration-300 hover:animate-pulse snap-center">
         Mobile Apps
       </button>
-
     </div>
 
     <div class="relative border-l-2 border-blue-300 dark:border-blue-800 ml-4 md:ml-6 space-y-12">
@@ -102,6 +100,7 @@
             <div class="flex flex-wrap gap-2 md:justify-end">
               <span class="px-3 py-1 text-xs font-semibold bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg">PHP</span>
               <span class="px-3 py-1 text-xs font-semibold bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg">Tailwind CSS</span>
+              <span class="px-3 py-1 text-xs font-semibold bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg">MySQL</span>
             </div>
           </div>
           <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
@@ -116,4 +115,78 @@
           <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
             <div>
               <h3 class="text-2xl font-bold text-gray-900 dark:text-white">ZODO Housing E-Commerce</h3>
-              <p class="text-blue-600 dark:text-blue-400 font-medium mt-1">
+              <p class="text-blue-600 dark:text-blue-400 font-medium mt-1">Frontend Web Design</p>
+            </div>
+            <div class="flex flex-wrap gap-2 md:justify-end">
+              <span class="px-3 py-1 text-xs font-semibold bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg">HTML</span>
+              <span class="px-3 py-1 text-xs font-semibold bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg">CSS</span>
+            </div>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            Engineered a front-end website specifically designed to showcase and sell land properties. Focused on creating a clean layout.
+          </p>
+        </div>
+      </div>
+
+      <div *ngIf="activeFilter === 'All'" class="relative pl-8 md:pl-12 transition-all duration-500 animate-fade-in-up">
+        <div class="absolute -left-[9px] top-10 w-4 h-4 rounded-full bg-blue-600 ring-4 ring-gray-50 dark:ring-gray-950"></div>
+        <div class="p-6 md:p-8 bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+          <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+            <div>
+              <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Passport Automation System</h3>
+              <p class="text-blue-600 dark:text-blue-400 font-medium mt-1">Enterprise Desktop Application</p>
+            </div>
+            <div class="flex flex-wrap gap-2 md:justify-end">
+              <span class="px-3 py-1 text-xs font-semibold bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg">Java</span>
+              <span class="px-3 py-1 text-xs font-semibold bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg">Eclipse</span>
+              <span class="px-3 py-1 text-xs font-semibold bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg">MySQL</span>
+            </div>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            Automated complex passport processing workflows using Java. This system was designed to significantly enhance efficiency and accuracy in application handling and user verification.
+          </p>
+        </div>
+      </div>
+
+      <div *ngIf="activeFilter === 'All'" class="relative pl-8 md:pl-12 transition-all duration-500 animate-fade-in-up">
+        <div class="absolute -left-[9px] top-10 w-4 h-4 rounded-full bg-blue-600 ring-4 ring-gray-50 dark:ring-gray-950"></div>
+        <div class="p-6 md:p-8 bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+          <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+            <div>
+              <h3 class="text-2xl font-bold text-gray-900 dark:text-white">CZ_Clothing Management System</h3>
+              <p class="text-blue-600 dark:text-blue-400 font-medium mt-1">Database Architecture</p>
+            </div>
+            <div class="flex flex-wrap gap-2 md:justify-end">
+              <span class="px-3 py-1 text-xs font-semibold bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg">MySQL</span>
+              <span class="px-3 py-1 text-xs font-semibold bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg">Database Design</span>
+            </div>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            Designed and implemented a relational MySQL database structure from scratch to securely manage inventory, customer records, and sales data for a retail clothing company.
+          </p>
+        </div>
+      </div>
+
+      <div *ngIf="activeFilter === 'All'" class="relative pl-8 md:pl-12 transition-all duration-500 animate-fade-in-up">
+        <div class="absolute -left-[9px] top-10 w-4 h-4 rounded-full bg-blue-600 ring-4 ring-gray-50 dark:ring-gray-950"></div>
+        <div class="p-6 md:p-8 bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+          <div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+            <div>
+              <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Embedded Rice Milling System</h3>
+              <p class="text-blue-600 dark:text-blue-400 font-medium mt-1">Hardware & Microcontrollers</p>
+            </div>
+            <div class="flex flex-wrap gap-2 md:justify-end">
+              <span class="px-3 py-1 text-xs font-semibold bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg">Arduino</span>
+              <span class="px-3 py-1 text-xs font-semibold bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg">C++</span>
+              <span class="px-3 py-1 text-xs font-semibold bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-lg">Sensors</span>
+            </div>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            Designed an automated Rice Milling System utilizing microcontroller technology. Incorporated various external sensors to achieve enhanced efficiency, precision, and real-time monitoring of the milling process.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
