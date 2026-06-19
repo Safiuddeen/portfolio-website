@@ -7,19 +7,19 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
-SMTP_SERVER = os.getenv("SMTP_SERVER")
-# 🔽 Changed fallback default from 465 to 587
-SMTP_PORT = int(os.getenv("SMTP_PORT", 587))
-SENDER_EMAIL = os.getenv("SENDER_EMAIL")
-SENDER_PASSWORD = os.getenv("SENDER_PASSWORD")
-RECEIVER_EMAIL = os.getenv("RECEIVER_EMAIL")
-
 def send_contact_email(name: str, email: str, mobile: str, message: str):
-    """Formats and sends an email via SMTP."""
-    msg = MIMEMultipart()
-    msg['From'] = SENDER_EMAIL
-    msg['To'] = RECEIVER_EMAIL
+    """Formats and sends an email via SMTP Port 587."""
     
+    # Dynamically fetch these directly inside the function
+    smtp_server = os.getenv("SMTP_SERVER", "smtp.gmail.com")
+    smtp_port = int(os.getenv("SMTP_PORT", 587))
+    sender_email = os.getenv("SENDER_EMAIL")
+    sender_password = os.getenv("SENDER_PASSWORD")
+    receiver_email = os.getenv("RECEIVER_EMAIL")
+
+    msg = MIMEMultipart()
+    msg['From'] = sender_email
+    msg['To'] = receiver_email
     msg['Subject'] = f"Portfolio Inquiry: {name}"
 
     body = f"""Hello,
@@ -45,12 +45,19 @@ MESSAGE
     msg.attach(MIMEText(body, 'plain'))
 
     try:
-        # 🔽 CHANGED: Swapped SMTP_SSL for SMTP to properly initiate TLS on port 587
-        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
-            server.starttls()  # 🌟 CRUCIAL: Encrypts the connection securely
-            server.login(SENDER_EMAIL, SENDER_PASSWORD)
+        print(f"Attempting connection to {smtp_server}:{smtp_port} using {sender_email}...")
+        
+        # Connect using standard SMTP (Required for port 587)
+        with smtplib.SMTP(smtp_server, smtp_port, timeout=15) as server:
+            server.ehlo()          # Identify ourselves to the server
+            server.starttls()      # Upgrade connection to secure TLS
+            server.ehlo()          # Re-identify over secure connection
+            
+            server.login(sender_email, sender_password)
             server.send_message(msg)
+            
+        print("SUCCESS: Email sent perfectly!")
         return True
     except Exception as e:
-        print(f"Failed to send email: {e}")
+        print(f"CRITICAL ERROR: Failed to send email: {e}")
         return False

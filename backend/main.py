@@ -1,4 +1,4 @@
-from fastapi import FastAPI, BackgroundTasks
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from email_service import send_contact_email
@@ -22,7 +22,6 @@ app.add_middleware(
 )
 
 # --- Pydantic Model ---
-# Updated to include the mobile field from your HTML
 class ContactForm(BaseModel):
     name: str
     email: str
@@ -31,13 +30,16 @@ class ContactForm(BaseModel):
 
 # --- API Route ---
 @app.post("/api/contact")
-async def submit_contact(form_data: ContactForm, background_tasks: BackgroundTasks):
-    background_tasks.add_task(
-        send_contact_email, 
+def submit_contact(form_data: ContactForm):
+    # Run the email sending directly (not in the background) to catch errors
+    email_success = send_contact_email(
         form_data.name, 
         form_data.email, 
-        form_data.mobile, # Passing the mobile number to the email service
+        form_data.mobile, 
         form_data.message
     )
     
-    return {"status": "success", "message": "Thank you! Your message has been sent."}
+    if email_success:
+        return {"status": "success", "message": "Thank you! Your message has been sent."}
+    else:
+        raise HTTPException(status_code=500, detail="Backend failed to send email. Check Render logs.")
