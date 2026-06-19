@@ -1,3 +1,5 @@
+// safi-portfolio/src/app/pages/contact/contact.service.ts
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -15,7 +17,7 @@ export interface ContactData {
 })
 export class ContactService {
   // Your FastAPI backend URL
-  private apiUrl = 'http://localhost:8000/api/contact';
+  private apiUrl = 'https://portfolio-backend-jtal.onrender.com';
 
   constructor(private http: HttpClient) {}
 
