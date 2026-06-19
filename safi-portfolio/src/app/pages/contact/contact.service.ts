@@ -17,7 +17,7 @@ export interface ContactData {
 })
 export class ContactService {
   // Your FastAPI backend URL
-  private apiUrl = 'https://portfolio-backend-jtal.onrender.com';
+  private apiUrl = 'https://portfolio-backend-jtal.onrender.com/api/contact';
 
   constructor(private http: HttpClient) {}
 
