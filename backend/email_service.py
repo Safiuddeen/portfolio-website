@@ -1,63 +1,56 @@
-import smtplib
 import os
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+import requests  # Using web requests completely bypasses Render's SMTP block
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
 load_dotenv()
 
 def send_contact_email(name: str, email: str, mobile: str, message: str):
-    """Formats and sends an email via SMTP Port 587."""
+    """Sends an email via Resend's Web HTTP API to bypass hosting blocks."""
     
-    # Dynamically fetch these directly inside the function
-    smtp_server = os.getenv("SMTP_SERVER", "smtp.gmail.com")
-    smtp_port = int(os.getenv("SMTP_PORT", 587))
-    sender_email = os.getenv("SENDER_EMAIL")
-    sender_password = os.getenv("SENDER_PASSWORD")
-    receiver_email = os.getenv("RECEIVER_EMAIL")
+    api_key = os.getenv("RESEND_API_KEY")
+    # Resend free tier requires sending 'from' their default testing domain
+    sender = "Portfolio Form <onboarding@resend.dev>"
+    # This is where you want to RECEIVE your portfolio notifications
+    receiver = "safideen395@gmail.com" 
 
-    msg = MIMEMultipart()
-    msg['From'] = sender_email
-    msg['To'] = receiver_email
-    msg['Subject'] = f"Portfolio Inquiry: {name}"
+    if not api_key:
+        print("CRITICAL ERROR: RESEND_API_KEY is missing from environment variables!")
+        return False
 
-    body = f"""Hello,
+    url = "https://api.resend.com/emails"
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+    
+    body = f"""New Message from Portfolio:
 
-You have received a new message from your portfolio contact form.
-
---------------------------------------------------
-CONTACT DETAILS
---------------------------------------------------
-Name:   {name}
-Email:  {email}
+Name: {name}
+Email: {email}
 Mobile: {mobile}
 
---------------------------------------------------
-MESSAGE
---------------------------------------------------
+Message:
 {message}
-
---------------------------------------------------
-* This is an automated message from your portfolio website. *
 """
-           
-    msg.attach(MIMEText(body, 'plain'))
+
+    payload = {
+        "from": sender,
+        "to": [receiver],
+        "subject": f"Portfolio Inquiry: {name}",
+        "text": body
+    }
 
     try:
-        print(f"Attempting connection to {smtp_server}:{smtp_port} using {sender_email}...")
+        print("Attempting to send email via Resend HTTP API...")
+        response = requests.post(url, headers=headers, json=payload, timeout=10)
         
-        # Connect using standard SMTP (Required for port 587)
-        with smtplib.SMTP(smtp_server, smtp_port, timeout=15) as server:
-            server.ehlo()          # Identify ourselves to the server
-            server.starttls()      # Upgrade connection to secure TLS
-            server.ehlo()          # Re-identify over secure connection
+        if response.status_code in [200, 201]:
+            print("SUCCESS: Email sent perfectly via Resend!")
+            return True
+        else:
+            print(f"CRITICAL ERROR: Resend API returned status {response.status_code}: {response.text}")
+            return False
             
-            server.login(sender_email, sender_password)
-            server.send_message(msg)
-            
-        print("SUCCESS: Email sent perfectly!")
-        return True
     except Exception as e:
-        print(f"CRITICAL ERROR: Failed to send email: {e}")
+        print(f"CRITICAL ERROR: Failed to reach Resend API: {e}")
         return False
