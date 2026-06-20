@@ -11,7 +11,7 @@ def send_contact_email(name: str, email: str, mobile: str, message: str):
     # Resend free tier requires sending 'from' their default testing domain
     sender = "Portfolio Form <onboarding@resend.dev>"
     # This is where you want to RECEIVE your portfolio notifications
-    receiver = "safideen395@gmail.com" 
+    receiver = "safideen.007@gmail.com" 
 
     if not api_key:
         print("CRITICAL ERROR: RESEND_API_KEY is missing from environment variables!")
